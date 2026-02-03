@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Virtual environments
+.env
+.venv/
+env/
+venv/
+
+# Data & modeller
+data/**
+!data/README.md
+models/**
+!models/README.md
+
+# OS-filer
+.DS_Store
+Thumbs.db
