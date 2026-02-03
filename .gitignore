@@ -1,0 +1,13 @@
+# Ignorera virtuell miljö
+.venv/
+venv/
+__pycache__/
+
+# Ignorera miljövariabler (Här ligger dina API-nycklar!)
+.env
+
+# Ignorera databasen (Vi bygger den lokalt, den är ofta för stor för git)
+chroma_db/
+
+# Ignorera systemfiler
+.DS_Store

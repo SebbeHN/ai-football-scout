@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Football Scout - Rapport</title>
+    <style>
+        @media print {
+            body { font-size: 11pt; }
+            h1 { page-break-before: auto; }
+            h2 { page-break-before: always; }
+            h2:first-of-type { page-break-before: auto; }
+            pre { page-break-inside: avoid; }
+            table { page-break-inside: avoid; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            color: #333;
+            background: #fff;
+        }
+        
+        h1 {
+            color: #1a1a2e;
+            border-bottom: 3px solid #4a69bd;
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        h2 {
+            color: #4a69bd;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+        
+        h3 {
+            color: #1a1a2e;
+            font-size: 1.2em;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.85em;
+        }
+        
+        pre code {
+            background: none;
+            color: #f8f8f2;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #4a69bd;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        blockquote {
+            border-left: 4px solid #4a69bd;
+            margin: 20px 0;
+            padding-left: 20px;
+            color: #666;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #eee;
+            margin: 30px 0;
+        }
+        
+        a {
+            color: #4a69bd;
+        }
+        
+        .title-page {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .title-page h1 {
+            font-size: 2.5em;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<h1 id="ai-football-scout">AI Football Scout</h1>
+<h2 id="utveckling-av-ett-ai-drivet-scoutingsystem-for-fotboll">Utveckling av ett AI-drivet scoutingsystem för fotboll</h2>
+<p><strong>Kurs:</strong> Kunskapskontroll AI<br />
+<strong>Datum:</strong> Januari 2026<br />
+<strong>Författare:</strong> Sebastian Holmberg</p>
+<hr />
+<h2 id="innehallsforteckning">Innehållsförteckning</h2>
+<ol>
+<li><a href="#1-inledning">Inledning</a></li>
+<li><a href="#2-syfte-och-mål">Syfte och mål</a></li>
+<li><a href="#3-teknisk-arkitektur">Teknisk arkitektur</a></li>
+<li><a href="#4-implementation">Implementation</a></li>
+<li><a href="#5-ai--och-ml-komponenter">AI- och ML-komponenter</a></li>
+<li><a href="#6-resultat-och-demonstration">Resultat och demonstration</a></li>
+<li><a href="#7-diskussion-och-reflektion">Diskussion och reflektion</a></li>
+<li><a href="#8-slutsats">Slutsats</a></li>
+<li><a href="#9-referenser">Referenser</a></li>
+</ol>
+<hr />
+<h2 id="1-inledning">1. Inledning</h2>
+<p>Fotbollsindustrin har genomgått en digital transformation där dataanalys spelar en allt viktigare roll i spelarrekrytering och scouting. Traditionell scouting, som bygger på subjektiva observationer, kompletteras nu med avancerad statistik och AI-drivna analysverktyg.</p>
+<p>Detta projekt presenterar <strong>AI Football Scout</strong> – en fullständig webbapplikation som kombinerar modern AI-teknologi med fotbollsstatistik för att assistera i scoutingprocessen. Applikationen använder tekniker som Retrieval-Augmented Generation (RAG), multi-agent system och maskininlärning för att analysera spelardata och ge rekommendationer.</p>
+<h3 id="11-bakgrund">1.1 Bakgrund</h3>
+<p>Moderna fotbollsklubbar investerar stora resurser i dataanalys. Mätvärden som <em>Expected Goals (xG)</em>, <em>Expected Assists (xAG)</em> och progressiva aktioner har blivit standard i spelarutvärdering. Utmaningen ligger i att:</p>
+<ul>
+<li>Hantera stora datamängder effektivt</li>
+<li>Extrahera meningsfulla insikter från statistik</li>
+<li>Kombinera kvantitativ data med kvalitativ analys</li>
+</ul>
+<p>AI-teknologi, särskilt stora språkmodeller (LLM), erbjuder nya möjligheter att lösa dessa utmaningar.</p>
+<hr />
+<h2 id="2-syfte-och-mal">2. Syfte och mål</h2>
+<h3 id="21-projektets-syfte">2.1 Projektets syfte</h3>
+<p>Syftet med projektet är att utveckla en AI-driven applikation som demonstrerar praktisk tillämpning av:</p>
+<ul>
+<li><strong>Retrieval-Augmented Generation (RAG)</strong> för kontextmedveten AI</li>
+<li><strong>Multi-agent system</strong> med LangGraph för specialiserad analys</li>
+<li><strong>Vektordatabaser</strong> för semantisk sökning</li>
+<li><strong>Maskininlärning</strong> för klustring och värdeprediktion</li>
+</ul>
+<h3 id="22-funktionella-mal">2.2 Funktionella mål</h3>
+<p>Applikationen ska kunna:</p>
+<ol>
+<li>Söka efter spelare baserat på naturligt språk</li>
+<li>Jämföra spelare visuellt med radar-/spiderdiagram</li>
+<li>Hitta liknande spelare baserat på statistisk profil</li>
+<li>Prediktera transfervärden med multipla faktorer</li>
+<li>Kategorisera spelare i typer med klustringsalgoritmer</li>
+<li>Föra konversationer om scouting och spelareanalys</li>
+</ol>
+<hr />
+<h2 id="3-teknisk-arkitektur">3. Teknisk arkitektur</h2>
+<h3 id="31-systemoversikt">3.1 Systemöversikt</h3>
+<p>Applikationen är uppbyggd i lager enligt följande arkitektur:</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    STREAMLIT FRONTEND                        │
+│              (Interaktivt webbgränssnitt)                   │
+├─────────────────────────────────────────────────────────────┤
+│              LANGGRAPH MULTI-AGENT SYSTEM                    │
+│  ┌───────────┐    ┌───────────┐    ┌─────────────┐         │
+│  │   SCOUT   │    │   STATS   │    │  TRANSFER   │         │
+│  │   AGENT   │    │   AGENT   │    │    AGENT    │         │
+│  └───────────┘    └───────────┘    └─────────────┘         │
+├─────────────────────────────────────────────────────────────┤
+│           HYBRID SEARCH (SQL + Semantic)                     │
+├─────────────────────────────────────────────────────────────┤
+│  ChromaDB      │  Google Gemini  │  Scikit-learn │  Pandas  │
+│  (Vektorer)    │     (LLM)       │     (ML)      │  (Data)  │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="32-teknologistack">3.2 Teknologistack</h3>
+<table>
+<thead>
+<tr>
+<th>Komponent</th>
+<th>Teknologi</th>
+<th>Syfte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>Streamlit</td>
+<td>Interaktivt webbgränssnitt</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>Google Gemini 2.0 Flash</td>
+<td>Textgenerering och analys</td>
+</tr>
+<tr>
+<td>Vektordatabas</td>
+<td>ChromaDB</td>
+<td>Semantisk sökning</td>
+</tr>
+<tr>
+<td>Embeddings</td>
+<td>Google Generative AI</td>
+<td>Textrepresentation</td>
+</tr>
+<tr>
+<td>Orkestrering</td>
+<td>LangGraph</td>
+<td>Multi-agent koordinering</td>
+</tr>
+<tr>
+<td>ML</td>
+<td>Scikit-learn</td>
+<td>Klustring, normalisering</td>
+</tr>
+<tr>
+<td>Visualisering</td>
+<td>Plotly</td>
+<td>Interaktiva diagram</td>
+</tr>
+<tr>
+<td>Databehandling</td>
+<td>Pandas, NumPy</td>
+<td>Statistikberäkningar</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-dataflode">3.3 Dataflöde</h3>
+<ol>
+<li><strong>Indata:</strong> Spelarstatistik från FBref (säsong 2024/25)</li>
+<li><strong>Preprocessing:</strong> Filtrering, beräkning av per-90 statistik</li>
+<li><strong>Vektorisering:</strong> Scouting-rapporter konverteras till embeddings</li>
+<li><strong>Lagring:</strong> Embeddings sparas i ChromaDB</li>
+<li><strong>Sökning:</strong> Hybrid av SQL-filter och semantisk sökning</li>
+<li><strong>Analys:</strong> LLM genererar insikter baserat på kontext</li>
+<li><strong>Presentation:</strong> Visualiseringar och text i Streamlit</li>
+</ol>
+<hr />
+<h2 id="4-implementation">4. Implementation</h2>
+<h3 id="41-dataforberedelse">4.1 Dataförberedelse</h3>
+<p>Spelardata från FBref innehåller över 2300 spelare från Europas toppligor. Varje spelare har cirka 40 statistiska attribut. Förbehandling inkluderar:</p>
+<pre><code class="language-python"># Filtrera spelare med tillräcklig speltid
+df = df[df['Min'] &gt;= 180]
+
+# Beräkna per-90 statistik för rättvis jämförelse
+df['Gls_p90'] = (df['Gls'] / df['Min']) * 90
+df['Ast_p90'] = (df['Ast'] / df['Min']) * 90
+df['npxG_p90'] = (df['npxG'] / df['Min']) * 90
+</code></pre>
+<p>Per-90 statistik är viktigt för att kunna jämföra spelare med olika speltid på ett rättvist sätt.</p>
+<h3 id="42-vektordatabas-och-rag">4.2 Vektordatabas och RAG</h3>
+<p>För att möjliggöra semantisk sökning skapas textbaserade "scouting reports" för varje spelare:</p>
+<pre><code class="language-python">def create_scouting_report(row):
+    return f&quot;&quot;&quot;
+    Player: {row['Player']}
+    Team: {row['Squad']}
+    Position: {row['Pos']}
+    Age: {row['Age']}
+    Goals: {row['Gls']}, Assists: {row['Ast']}
+    xG: {row['npxG']}, xAG: {row['xAG']}
+    Progressive Carries: {row['PrgC']}
+    Progressive Passes: {row['PrgP']}
+    &quot;&quot;&quot;
+</code></pre>
+<p>Dessa rapporter konverteras till vektorer med Google Generative AI Embeddings och lagras i ChromaDB. Vid sökning:</p>
+<ol>
+<li>Användarens fråga konverteras till en vektor</li>
+<li>ChromaDB hittar liknande spelarprofiler</li>
+<li>Relevanta spelare skickas som kontext till LLM:en</li>
+</ol>
+<h3 id="43-hybrid-sokning">4.3 Hybrid sökning</h3>
+<p>Ren semantisk sökning räcker inte för kvantitativa frågor som "hitta anfallare under 23 år". Därför implementerades en hybrid approach:</p>
+<pre><code class="language-python">def hybrid_search(df, db, query, ...):
+    # 1. Parsera naturligt språk för filter
+    query_filters = parse_query_filters(query)
+
+    # 2. Applicera SQL-liknande filter
+    if query_filters['position']:
+        filtered_df = df[df['Pos'].str.contains(position)]
+    if query_filters['max_age']:
+        filtered_df = filtered_df[filtered_df['Age'] &lt;= max_age]
+
+    # 3. Sortera efter relevant statistik
+    filtered_df['score'] = calculate_composite_score(...)
+
+    # 4. Hämta semantiskt relevanta dokument
+    docs = db.similarity_search(query)
+
+    # 5. Kombinera resultaten
+    return filtered_docs, filtered_df
+</code></pre>
+<p>Query-parsern extraherar automatiskt filter från naturligt språk:
+- "mittback" → Position = DF
+- "under 23" → Max ålder = 23
+- "striker" → Position = FW</p>
+<h3 id="44-multi-agent-system">4.4 Multi-Agent System</h3>
+<p>LangGraph används för att orkestrera specialiserade AI-agenter:</p>
+<p><strong>Scout Agent:</strong> Specialiserad på att hitta spelare som matchar specifika kriterier.</p>
+<p><strong>Stats Agent:</strong> Fokuserar på djupgående statistisk analys och xG-tolkning.</p>
+<p><strong>Transfer Agent:</strong> Utvärderar marknadsvärde och transferpotential.</p>
+<p>En <strong>Supervisor</strong> analyserar varje fråga och dirigerar den till lämplig agent:</p>
+<pre><code class="language-python">class AgentState(TypedDict):
+    messages: Sequence[BaseMessage]
+    query: str
+    context: str
+    agent_type: str
+    final_response: str
+
+def build_agent_graph(llm):
+    workflow = StateGraph(AgentState)
+
+    workflow.add_node(&quot;scout&quot;, run_scout_agent)
+    workflow.add_node(&quot;stats&quot;, run_stats_agent)
+    workflow.add_node(&quot;transfer&quot;, run_transfer_agent)
+
+    workflow.set_conditional_entry_point(router, {...})
+
+    return workflow.compile()
+</code></pre>
+<h3 id="45-transfer-value-prediction">4.5 Transfer Value Prediction</h3>
+<p>Transfervärdeprediktionen använder en regelbaserad modell kalibrerad mot verkliga transfersummor:</p>
+<p><strong>Faktorer som påverkar värdet:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Faktor</th>
+<th>Beskrivning</th>
+<th>Påverkan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ålder</td>
+<td>Peak vid 25-28 år</td>
+<td>±20%</td>
+</tr>
+<tr>
+<td>Position</td>
+<td>Anfallare värderas högst</td>
+<td>Bas 8-28M€</td>
+</tr>
+<tr>
+<td>Liga</td>
+<td>Premier League = högst</td>
+<td>±25%</td>
+</tr>
+<tr>
+<td>Prestation</td>
+<td>Mål, assists, xG</td>
+<td>±50%</td>
+</tr>
+<tr>
+<td>Progression</td>
+<td>Carries, passes</td>
+<td>±15%</td>
+</tr>
+<tr>
+<td>Klubbnivå</td>
+<td>Elite/Top/Mid/Lower</td>
+<td>±40%</td>
+</tr>
+</tbody>
+</table>
+<p>Formeln kombinerar dessa faktorer multiplikativt:</p>
+<pre><code>Värde = Basvärde × Åldersfaktor × Ligafaktor × 
+        Klubbfaktor × Prestationsfaktor × Inflation
+</code></pre>
+<h3 id="46-spelarklustring">4.6 Spelarklustring</h3>
+<p>K-Means klustring används för att automatiskt kategorisera spelare:</p>
+<pre><code class="language-python">def cluster_players(df, n_clusters=6):
+    features = ['Gls_p90', 'Ast_p90', 'npxG_p90', 
+                'xAG_p90', 'PrgC_p90', 'PrgP_p90']
+
+    scaler = MinMaxScaler()
+    X_scaled = scaler.fit_transform(df[features])
+
+    kmeans = KMeans(n_clusters=n_clusters)
+    df['cluster'] = kmeans.fit_predict(X_scaled)
+</code></pre>
+<p>Klustren mappas till beskrivande spelartypkategorier som "Elite Scorers", "Creative Playmakers" och "Progressive Carriers".</p>
+<h3 id="47-similar-players">4.7 Similar Players</h3>
+<p>För att hitta liknande spelare används euklidiskt avstånd i normaliserat statistikrum:</p>
+<pre><code class="language-python">def find_similar_players(df, player_name, top_k=5):
+    # Normalisera statistik
+    scaler = MinMaxScaler()
+    normalized = scaler.fit_transform(df[stats])
+
+    # Beräkna avstånd
+    player_vec = get_player_vector(player_name)
+    distances = euclidean_distance(player_vec, all_players)
+
+    # Exkludera samma lag för scouting-relevans
+    similar = filter_different_team(distances)
+
+    return similar[:top_k]
+</code></pre>
+<p>Viktigt: Funktionen exkluderar spelare från samma lag för att ge relevanta scoutingförslag.</p>
+<hr />
+<h2 id="5-ai-och-ml-komponenter">5. AI- och ML-komponenter</h2>
+<h3 id="51-large-language-model-llm">5.1 Large Language Model (LLM)</h3>
+<p>Projektet använder <strong>Google Gemini 2.0 Flash</strong> för:</p>
+<ul>
+<li>Generering av naturliga textsvar</li>
+<li>Analys och jämförelse av spelare</li>
+<li>Konversationshantering i chatten</li>
+<li>Routing av frågor till rätt agent</li>
+</ul>
+<p>Modellen är konfigurerad med låg temperatur (0.3) för mer deterministiska och faktabaserade svar.</p>
+<h3 id="52-embeddings-och-vektorsokning">5.2 Embeddings och vektorsökning</h3>
+<p><strong>Google Generative AI Embeddings</strong> konverterar text till 768-dimensionella vektorer. Detta möjliggör:</p>
+<ul>
+<li>Semantisk likhet ("hitta snabba anfallare" matchar spelare med hög dribbling)</li>
+<li>Kontextförståelse (synonymer och relaterade koncept)</li>
+<li>Effektiv sökning i stor datamängd</li>
+</ul>
+<h3 id="53-langgraph-och-agentorkestration">5.3 LangGraph och agentorkestration</h3>
+<p>LangGraph implementerar ett <strong>State Graph</strong> där:</p>
+<ul>
+<li><strong>Noder</strong> representerar agenter</li>
+<li><strong>Kanter</strong> definierar arbetsflöde</li>
+<li><strong>State</strong> bevaras genom processen</li>
+</ul>
+<p>Detta möjliggör mer komplex resonering än enkel prompt-chaining.</p>
+<h3 id="54-scikit-learn-for-klustring">5.4 Scikit-learn för klustring</h3>
+<p>K-Means algoritmen grupperar spelare baserat på likhet i statistik. Fördelar:</p>
+<ul>
+<li>Snabb att träna</li>
+<li>Tolkningsbara resultat</li>
+<li>Skalbar till stora datamängder</li>
+</ul>
+<hr />
+<h2 id="6-resultat-och-demonstration">6. Resultat och demonstration</h2>
+<h3 id="61-applikationens-funktioner">6.1 Applikationens funktioner</h3>
+<p>Den färdiga applikationen har <strong>7 funktionella flikar</strong>:</p>
+<ol>
+<li><strong>Scout Chat</strong> - Konversationsbaserad interaktion med minne</li>
+<li><strong>Scout Search</strong> - Avancerad sökning med multi-agent analys</li>
+<li><strong>Agent System</strong> - Visualisering av AI-arkitekturen</li>
+<li><strong>Compare Players</strong> - Spiderdiagram för spelarjämförelse</li>
+<li><strong>Similar Players</strong> - Hitta liknande spelare från andra lag</li>
+<li><strong>Transfer Prediction</strong> - Uppskatta transfervärde</li>
+<li><strong>Player Clusters</strong> - ML-baserad spelarkategorisering</li>
+</ol>
+<h3 id="62-exempelfragor-och-svar">6.2 Exempelfrågor och svar</h3>
+<p><strong>Fråga:</strong> "Hitta en mittback under 25 år med bra progressiva aktioner"</p>
+<p><strong>System:</strong>
+1. Query parser extraherar: Position=DF, MaxAge=25
+2. Hybrid search filtrerar och sorterar på PrgC+PrgP
+3. Scout Agent genererar analys med specifika rekommendationer</p>
+<p><strong>Fråga:</strong> "Vad är Noni Madueke värd?"</p>
+<p><strong>System:</strong>
+1. Transfer Agent aktiveras
+2. Spelardata hämtas: 22 år, FW, 7 mål, 154 prog carries
+3. Modellen beräknar: ~65M€ (kalibrerat mot verklig transfer)</p>
+<h3 id="63-prestanda">6.3 Prestanda</h3>
+<ul>
+<li>Svarstid för sökning: ~2-3 sekunder</li>
+<li>Vektordatabas med 2300+ spelare</li>
+<li>Stabil drift med Streamlit</li>
+</ul>
+<hr />
+<h2 id="7-diskussion-och-reflektion">7. Diskussion och reflektion</h2>
+<h3 id="71-lardomar">7.1 Lärdomar</h3>
+<p><strong>RAG-arkitektur:</strong> Att ge LLM:en kontext från en vektordatabas förbättrar avsevärt kvaliteten på svaren. Utan detta "hallucinerar" modellen ofta fakta.</p>
+<p><strong>Hybrid sökning:</strong> Ren semantisk sökning fungerar dåligt för kvantitativa frågor. Kombinationen med SQL-liknande filter är nödvändig.</p>
+<p><strong>Kalibrering:</strong> ML-modeller måste valideras mot verkliga data. Den initiala transfermodellen överskattade värden kraftigt.</p>
+<h3 id="72-begransningar">7.2 Begränsningar</h3>
+<ul>
+<li><strong>Dataaktualitet:</strong> Statistiken är från 2024/25 och uppdateras inte i realtid</li>
+<li><strong>Kontraktsdata saknas:</strong> Påverkar transfervärden men finns ej i datasetet</li>
+<li><strong>Begränsad position-data:</strong> Endast övergripande positioner (FW/MF/DF/GK)</li>
+</ul>
+<h3 id="73-forbattringsmojligheter">7.3 Förbättringsmöjligheter</h3>
+<ul>
+<li>Integration med live-API för uppdaterad statistik</li>
+<li>Fler dataattribut (kontrakt, skador, spelminuter per match)</li>
+<li>Utökad klustring med fler dimensioner</li>
+<li>Jämförelse med faktiska transfersummor för modellvalidering</li>
+</ul>
+<hr />
+<h2 id="8-slutsats">8. Slutsats</h2>
+<p>Projektet demonstrerar framgångsrik integration av flera AI- och ML-tekniker i en praktisk applikation. De viktigaste bidragen är:</p>
+<ol>
+<li><strong>Multi-Agent arkitektur</strong> med LangGraph som dirigerar specialiserade agenter</li>
+<li><strong>Hybrid sökning</strong> som kombinerar semantisk förståelse med kvantitativ filtrering</li>
+<li><strong>RAG-implementation</strong> som förankrar LLM-svar i faktisk spelardata</li>
+<li><strong>Transfervärdemodell</strong> kalibrerad mot verkliga marknadsdata</li>
+</ol>
+<p>Applikationen visar hur moderna AI-verktyg kan tillämpas på ett verkligt domänproblem och ge mervärde genom att kombinera mänsklig intuition med datadriven analys.</p>
+<hr />
+<h2 id="9-referenser">9. Referenser</h2>
+<h3 id="teknisk-dokumentation">Teknisk dokumentation</h3>
+<ul>
+<li>LangChain Documentation. https://python.langchain.com/</li>
+<li>LangGraph Documentation. https://langchain-ai.github.io/langgraph/</li>
+<li>Streamlit Documentation. https://docs.streamlit.io/</li>
+<li>ChromaDB Documentation. https://docs.trychroma.com/</li>
+<li>Scikit-learn User Guide. https://scikit-learn.org/stable/user_guide.html</li>
+</ul>
+<h3 id="fotbollsstatistik">Fotbollsstatistik</h3>
+<ul>
+<li>FBref.com - Football Statistics and History</li>
+<li>StatsBomb - Expected Goals (xG) Methodology</li>
+</ul>
+<h3 id="ai-och-machine-learning">AI och Machine Learning</h3>
+<ul>
+<li>Google AI - Gemini API Documentation</li>
+<li>Vaswani et al. (2017) - Attention Is All You Need</li>
+<li>Lewis et al. (2020) - Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</li>
+</ul>
+<hr />
+<h2 id="bilagor">Bilagor</h2>
+<h3 id="a-teknisk-specifikation">A. Teknisk specifikation</h3>
+<p><strong>Python-version:</strong> 3.13<br />
+<strong>Ramverk:</strong> Streamlit<br />
+<strong>LLM:</strong> Google Gemini 2.0 Flash<br />
+<strong>Vektordatabas:</strong> ChromaDB<br />
+<strong>ML-bibliotek:</strong> Scikit-learn  </p>
+<h3 id="b-filstruktur">B. Filstruktur</h3>
+<pre><code>ai-football-scout/
+├── app.py                 # Huvudapplikation
+├── scout_notebook.ipynb   # Dataförberedelse
+├── requirements.txt       # Beroenden
+├── data/
+│   └── players24_25.csv   # Spelarstatistik
+├── chroma_db/             # Vektordatabas
+└── .env                   # API-nycklar
+</code></pre>
+<h3 id="c-installationsinstruktioner">C. Installationsinstruktioner</h3>
+<pre><code class="language-bash"># Skapa virtuell miljö
+python -m venv .venv
+source .venv/bin/activate
+
+# Installera beroenden
+pip install -r requirements.txt
+
+# Konfigurera API-nyckel
+echo &quot;GOOGLE_API_KEY=din_nyckel&quot; &gt; .env
+
+# Kör notebook för att skapa vektordatabas
+jupyter notebook scout_notebook.ipynb
+
+# Starta applikationen
+streamlit run app.py
+</code></pre>
+<hr />
+<p><em>Rapport genererad januari 2026</em></p>
+</body>
+</html>
