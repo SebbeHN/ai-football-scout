@@ -1,13 +1,14 @@
-# Ignorera virtuell miljö
+# Virtual environment
 .venv/
 venv/
 __pycache__/
 
-# Ignorera miljövariabler (Här ligger dina API-nycklar!)
+# Environment variables (API keys)
 .env
 
-# Ignorera databasen (Vi bygger den lokalt, den är ofta för stor för git)
+# Vector database (built locally)
 chroma_db/
 
-# Ignorera systemfiler
+# System files
 .DS_Store
+*.pyc
