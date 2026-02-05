@@ -1,10 +1,12 @@
 langchain
 langchain-community
-langchain-openai
+langchain-google-genai
+langgraph
 chromadb
 pandas
+numpy
 streamlit
+plotly
+scikit-learn
 python-dotenv
 openpyxl
-ipykernel
-notebook
