@@ -9,8 +9,8 @@ from plotly.subplots import make_subplots
 
 # Page configuration
 st.set_page_config(
-    page_title="⚽ ML Transfer Predictor",
-    page_icon="⚽",
+    page_title="ML Transfer Predictor",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -94,9 +94,9 @@ def load_models():
         
         return classifier, regressor, feature_cols, club_tiers_to, club_tiers_from, league_strength, position_values, feature_info
     except FileNotFoundError as e:
-        st.error(f"⚠️ Model files not found: {e}")
+        st.error(f"Model files not found: {e}")
         st.error("Run cell 14 in the notebook to create the clean model files with '_clean' suffix.")
-        st.info("💡 Tip: Clean models have realistic performance without data leakage.")
+        st.info("Tip: Clean models have realistic performance without data leakage.")
         return None, None, None, None, None, None, None, None
 
 def create_gauge_chart(value, title, max_value=100):
@@ -382,12 +382,12 @@ def create_advanced_prediction(age, position, to_club, from_club_tier, league, t
 
 def main():
     
-    st.markdown('<h1 class="main-header">⚽ ML Transfer Predictor</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">ML Transfer Predictor</h1>', unsafe_allow_html=True)
     
     
     st.markdown("""
     <div style='text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 2rem;'>
-        🚀 Advanced Machine Learning for Football Transfer Analysis
+        Advanced Machine Learning for Football Transfer Analysis
     </div>
     """, unsafe_allow_html=True)
     
@@ -401,24 +401,24 @@ def main():
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.markdown('<div class="metric-container">🤖 ML Models<br><strong>LOADED</strong></div>', unsafe_allow_html=True)
+        st.markdown('<div class="metric-container">ML Models<br><strong>LOADED</strong></div>', unsafe_allow_html=True)
     with col2:
-        st.markdown(f'<div class="metric-container">📊 Features<br><strong>{len(feature_cols)}</strong></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="metric-container">Features<br><strong>{len(feature_cols)}</strong></div>', unsafe_allow_html=True)
     with col3:
         if 'model_performance' in feature_info:
             perf = feature_info['model_performance']
-            st.markdown(f'<div class="metric-container">🎯 AUC Score<br><strong>{perf["classification_auc"]:.3f}</strong></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="metric-container">AUC Score<br><strong>{perf["classification_auc"]:.3f}</strong></div>', unsafe_allow_html=True)
     with col4:
-        st.markdown('<div class="metric-container">✅ Status<br><strong>READY</strong></div>', unsafe_allow_html=True)
+        st.markdown('<div class="metric-container">Status<br><strong>READY</strong></div>', unsafe_allow_html=True)
     
     
     col_sidebar, col_main = st.columns([1, 2])
     
     with col_sidebar:
-        st.markdown("## 🎯 Player Configuration")
+        st.markdown("## Player Configuration")
         
         
-        st.markdown("### 👤 Player Details")
+        st.markdown("### Player Details")
         age = st.slider("Age", 16, 40, 24, help="Player's age at transfer")
         
         position = st.selectbox("Position", [
@@ -428,7 +428,7 @@ def main():
         ])
         
         
-        st.markdown("### 🏟️ Club Information")
+        st.markdown("### Club Information")
         to_club = st.selectbox("Destination Club", [
             'Real Madrid', 'Barcelona', 'Paris Saint-Germain', 'Manchester City',
             'Manchester United', 'Arsenal', 'Chelsea', 'Liverpool', 'Juventus', 'AC Milan',
@@ -445,7 +445,7 @@ def main():
         ])
         
         
-        st.markdown("### 🌍 Market Context")
+        st.markdown("### Market Context")
         league = st.selectbox("League", [
             'Premier League', 'La Liga', '1. Bundesliga', 'Serie A', 'Ligue 1',
             'Eredivisie', 'Liga Nos', 'Championship', 'Other league'
@@ -455,7 +455,7 @@ def main():
         transfer_year = st.slider("Transfer Year", 2020, 2025, 2024)
         
         
-        predict_button = st.button("🚀 ANALYZE TRANSFER", type="primary", use_container_width=True)
+        predict_button = st.button("ANALYZE TRANSFER", type="primary", use_container_width=True)
     
     with col_main:
         if predict_button:
@@ -467,7 +467,7 @@ def main():
             
             st.markdown(f"""
             <div class="prediction-card">
-                <h2 style='margin-top: 0;'>🎯 Prediction Results</h2>
+                <h2 style='margin-top: 0;'>Prediction Results</h2>
                 <div style='display: flex; justify-content: space-between; align-items: center;'>
                     <div style='text-align: center;'>
                         <h3>Free Transfer</h3>
@@ -496,12 +496,12 @@ def main():
                 st.plotly_chart(value_gauge, use_container_width=True)
             
             
-            st.markdown("## 📊 Feature Impact Analysis")
+            st.markdown("## Feature Impact Analysis")
             importance_fig = create_feature_importance_chart(details)
             st.plotly_chart(importance_fig, use_container_width=True)
             
             
-            st.markdown("## ⚠️ Comprehensive Risk Analysis")
+            st.markdown("## Comprehensive Risk Analysis")
             risk_fig = create_risk_analysis_chart(free_prob, estimated_fee, age)
             st.plotly_chart(risk_fig, use_container_width=True)
             
@@ -509,7 +509,7 @@ def main():
             col1, col2 = st.columns(2)
             
             with col1:
-                st.markdown("### 🔍 Value Factors")
+                st.markdown("### Value Factors")
                 
                 factors = [
                     ("Position", details['position_simple'], f"€{details['base_value']:.1f}M base"),
@@ -529,7 +529,7 @@ def main():
                     """, unsafe_allow_html=True)
             
             with col2:
-                st.markdown("### 🎲 Risk Assessment")
+                st.markdown("### Risk Assessment")
                 
                 risk_factors = []
                 if age >= 32:
@@ -559,7 +559,7 @@ def main():
                     """, unsafe_allow_html=True)
             
             
-            st.markdown("## 🏆 Market Comparison")
+            st.markdown("## Market Comparison")
             
             position_markets = {
                 'FWD': {'avg': 32.5, 'range': '€15-80M', 'trend': 'Premium for young talent'},
@@ -589,21 +589,21 @@ def main():
             st.markdown("""
             <div style='text-align: center; padding: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
                         border-radius: 20px; color: white; margin: 2rem 0;'>
-                <h2>🚀 Ready to Analyze Transfers</h2>
+                <h2>Ready to Analyze Transfers</h2>
                 <p style='font-size: 1.1rem; margin: 1rem 0;'>
                     Configure player parameters in the sidebar and click "ANALYZE TRANSFER" to see:
                 </p>
                 <ul style='text-align: left; display: inline-block; font-size: 1rem;'>
-                    <li>🎯 Free transfer probability with confidence scores</li>
-                    <li>💰 Market value estimation with factor breakdown</li>
-                    <li>📊 Interactive visualizations and risk analysis</li>
-                    <li>🏆 Position-based market comparisons</li>
+                    <li>Free transfer probability with confidence scores</li>
+                    <li>Market value estimation with factor breakdown</li>
+                    <li>Interactive visualizations and risk analysis</li>
+                    <li>Position-based market comparisons</li>
                 </ul>
             </div>
             """, unsafe_allow_html=True)
             
             
-            st.markdown("## 🔥 Example Predictions")
+            st.markdown("## Example Predictions")
             
             examples = [
                 {"player": "22-year-old Striker → Real Madrid", "free": 15, "value": 45, "desc": "Young talent premium"},
@@ -624,31 +624,31 @@ def main():
                     """, unsafe_allow_html=True)
     
     
-    with st.expander("🔧 Technical Details & Model Information"):
+    with st.expander("Technical Details & Model Information"):
         col1, col2 = st.columns(2)
         
         with col1:
-            st.markdown("**🤖 Model Architecture**")
-            st.success("✅ Random Forest Classifier (Clean)")
-            st.success("✅ Random Forest Regressor (Clean)")
-            st.success(f"✅ {len(feature_cols)} validated features")
-            st.success("✅ No data leakage")
+            st.markdown("**Model Architecture**")
+            st.success("Random Forest Classifier (Clean)")
+            st.success("Random Forest Regressor (Clean)")
+            st.success(f"{len(feature_cols)} validated features")
+            st.success("No data leakage")
             
             if 'model_performance' in feature_info:
                 perf = feature_info['model_performance']
-                st.markdown("**📊 Performance Metrics**")
-                st.info(f"🎯 Classification AUC: {perf['classification_auc']:.3f}")
-                st.info(f"📈 Regression R²: {perf['regression_r2']:.3f}")
-                st.info(f"⚡ Average Error: ±€{perf.get('regression_mae_millions', 8.5):.1f}M")
+                st.markdown("**Performance Metrics**")
+                st.info(f"Classification AUC: {perf['classification_auc']:.3f}")
+                st.info(f"Regression R2: {perf['regression_r2']:.3f}")
+                st.info(f"Average Error: +/-{perf.get('regression_mae_millions', 8.5):.1f}M")
         
         with col2:
-            st.markdown("**🛡️ Data Quality Improvements**")
-            st.success("✅ Removed target-correlated features")
-            st.success("✅ Only pre-transfer information used")
-            st.success("✅ Realistic performance metrics")
-            st.success("✅ Cross-validated predictions")
+            st.markdown("**Data Quality Improvements**")
+            st.success("Removed target-correlated features")
+            st.success("Only pre-transfer information used")
+            st.success("Realistic performance metrics")
+            st.success("Cross-validated predictions")
             
-            st.markdown("**🎯 Key Features Used**")
+            st.markdown("**Key Features Used**")
             if 'safe_features' in feature_info:
                 safe_features = feature_info['safe_features'][:8]  
                 for feature in safe_features:
@@ -657,7 +657,7 @@ def main():
                     st.write(f"... and {len(feature_info['safe_features']) - 8} more")
             
         st.markdown("---")
-        st.markdown("**⚠️ Important Notes**")
+        st.markdown("**Important Notes**")
         st.warning("""
         **Model Limitations:**
         • Predictions based on historical transfer patterns (2020-2024)
