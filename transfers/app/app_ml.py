@@ -10,7 +10,6 @@ from plotly.subplots import make_subplots
 # Page configuration
 st.set_page_config(
     page_title="ML Transfer Predictor",
-    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
 )
