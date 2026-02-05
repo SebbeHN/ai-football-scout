@@ -21,7 +21,6 @@ load_dotenv()
 # --- PAGE CONFIG ---
 st.set_page_config(
     page_title="AI Football Scout",
-    page_icon="",
     layout="wide"
 )
 
