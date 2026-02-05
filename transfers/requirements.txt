@@ -1,25 +1,22 @@
-# Datahantering
+# Data handling
 pandas
 numpy
 
-# Visualisering
+# Visualization
 matplotlib
 seaborn
-plotly   # interaktiva grafer
+plotly
 
-# Statistik & regression
+# Statistics & ML
 scikit-learn
 statsmodels
 scipy
+joblib
 
-# Jupyter-miljö
+# Jupyter
 jupyter
 notebook
 ipykernel
 
-# Extra för EDA
-missingno          # visualisering av missing values
-
-# Streamlit för webbapp
+# Streamlit web app
 streamlit
-streamlit-aggrid  # för att visa dataframes snyggt i Streamlit
