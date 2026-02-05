@@ -1,106 +1,90 @@
-# ⚽ Transfer Predictor – ML-driven transfermodell
+# Transfer Predictor - ML Transfer Model
 
-Ett proof-of-concept-projekt som använder maskininlärning för att förutsäga om en fotbollstransfer blir gratis eller betald, samt att estimera transfersumman.
+A proof-of-concept project using machine learning to predict whether a football transfer will be free or paid, and to estimate the transfer fee.
 
 ---
 
-## 🚀 Kom igång
+## Getting Started
 
-### Steg 1 – Klona repot
+### Step 1 - Clone the repo
 ```bash
-git clone https://github.com/SebbeHN/transfer-predictor.git
-cd transfer-predictor
+git clone https://github.com/SebbeHN/ai-football-scout.git
+cd ai-football-scout/transfers
 ```
 
-### Steg 2 – Installera beroenden
+### Step 2 - Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### Steg 3 – (Om modeller saknas) Träna modeller
-Alla `.pkl`-filer finns normalt i `models/`.  
-Om de saknas, kör hela notebooken:
+### Step 3 - (If models are missing) Train models
+All `.pkl` files are normally in `models/`.  
+If missing, run the full notebook:
 
 ```bash
-jupyter notebook notebooks/transfers.ipynb
+jupyter notebook notebook/transfers.ipynb
 ```
 
-När alla celler körs sparas modellerna automatiskt i `models/`.
+When all cells run, models are saved automatically to `models/`.
 
-### Steg 4 – Starta appen
+### Step 4 - Start the app
 ```bash
 streamlit run app/app_ml.py
 ```
 
-Appen laddar modeller från `models/` och erbjuder interaktiv input för att göra prediktioner.
+The app loads models from `models/` and offers interactive input for predictions.
 
 ---
 
-## 🗂️ Projektstruktur
+## Project Structure
 
 ```
-transfer-predictor/
+transfers/
 ├─ app/
-│  └─ app_ml.py              # Streamlit-applikationen
-├─ notebooks/
-│  └─ transfers.ipynb        # Notebook med träning & analys
-├─ models/                   # Sparade modeller (.pkl, via joblib/LFS)
-├─ data/                     # Dataset (CSV-filer)
+│  └─ app_ml.py              # Streamlit application
+├─ notebook/
+│  └─ transfers.ipynb        # Notebook with training & analysis
+├─ models/                   # Saved models (.pkl via joblib)
+├─ data/                     # Dataset (CSV files)
 ├─ requirements.txt
 └─ README.md
 ```
 
 ---
 
-## 📊 Funktioner & metodik
+## Features & Methods
 
-- **Klassificering** – gratis vs betald transfer  
-  - Random Forest Classifier, Logistic Regression  
-  - Utvärderat med ROC AUC & Accuracy  
+- **Classification** - free vs paid transfer  
+  - Random Forest Classifier  
+  - Evaluated with ROC AUC & Accuracy  
 
-- **Regression** – prediktion av transferbelopp  
-  - Random Forest Regressor, Ridge Regression  
-  - Utvärderat med R², MAE och RMSE  
+- **Regression** - transfer fee prediction  
+  - Random Forest Regressor  
+  - Evaluated with R2, MAE and RMSE  
 
 - **Feature Engineering**  
   - Position mapping  
-  - Klubb-tier (elite/top/mid/lower/unknown)  
-  - Ligastyrka (proxy via snittfees)  
-  - Ålder (inkl. icke-linjära termer)  
-  - År & transferfönster (sommar/vinter)  
-  - Läckagevariabler borttagna (t.ex. fee, transfer_type)
-
-- **Deployment**  
-  - Streamlit-app som laddar tränade `.pkl`-filer  
-  - Transparens kring features & pipeline  
+  - Club tier (elite/top/mid/lower/unknown)  
+  - League strength  
+  - Age factors  
+  - Transfer window (summer/winter)  
 
 ---
 
-## 📦 Data
+## Data
 
-Alla dataset finns i `data/` som **CSV-filer**.  
-Det är dessa som används i notebooken för att träna modellerna.
-
----
-
-## ⚠ Begränsningar
-
-- Modellen underskattar ofta extrema transfers (“supertransfers”).  
-- Kontraktslängd, marknadsvärde och spelarstatistik saknas.  
-- Historiska mönster kan snabbt bli inaktuella när marknaden ändras.  
+All datasets are in `data/` as CSV files from major European leagues.
 
 ---
 
-## 📈 Framtida utveckling
+## Limitations
 
-- Mer avancerade modeller (XGBoost, LightGBM).  
-- Inkludera kontraktslängd och spelarprestation.  
-- Automatisk datahämtning + retraining.  
-- Utvärdera tidsseriemodeller för marknadsförändringar.  
+- Model may underestimate extreme transfers  
+- Contract length and player statistics not included  
+- Historical patterns can become outdated  
 
 ---
 
-## 📝 Licens & bidrag
+## License
 
-Detta är ett studentprojekt / proof-of-concept.  
-Bidrag välkomnas via Pull Requests.
+Student project / proof-of-concept.
