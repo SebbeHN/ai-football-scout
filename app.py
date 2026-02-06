@@ -51,15 +51,15 @@ def predict_transfer_value(age, position, to_club, from_club_tier, league,
     position_simple = position_mapping.get(position, 'MID')
     
     # === AGE FACTOR ===
-    # Peak value at 25-28, moderate premium for young talents
+    # Peak value at 25-28
     if age <= 20:
-        age_factor = 0.90  # High potential but unproven
+        age_factor = 0.90
     elif age <= 23:
-        age_factor = 1.10  # Young with upside
+        age_factor = 1.10
     elif age <= 27:
         age_factor = 1.20  # Peak years
     elif age <= 29:
-        age_factor = 1.05  # Still good
+        age_factor = 1.05
     elif age <= 31:
         age_factor = 0.80
     elif age <= 33:
@@ -94,9 +94,9 @@ def predict_transfer_value(age, position, to_club, from_club_tier, league,
         if position_simple in ['FWD', 'WING']:
             # Attackers valued on goals
             if goals_p90 >= 0.8:
-                perf_factor = 1.8  # Elite scorer (Haaland level)
+                perf_factor = 1.8  # Elite scorer
             elif goals_p90 >= 0.5:
-                perf_factor = 1.5  # Good scorer
+                perf_factor = 1.5  # Strong scorer
             elif goals_p90 >= 0.3:
                 perf_factor = 1.25
             else:
